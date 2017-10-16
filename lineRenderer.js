@@ -23,19 +23,24 @@ function lineRenderer(commands, scale) {
         }
         break;
       case 'C':
-        x = cmd[5]
-        y = cmd[6]
+        for (let i=1; i<cmd.length; i+=6) {
+          x = cmd[i+4]
+          y = cmd[i+5]
 
-        bezier = new Bezier([
-          new Point(px, py),
-          new Point(cmd[1], cmd[2]),
-          new Point(cmd[3], cmd[4]),
-          new Point(x, y)
-        ]);
+          bezier = new Bezier([
+            new Point(px, py),
+            new Point(cmd[i], cmd[i+1]),
+            new Point(cmd[i+2], cmd[i+3]),
+            new Point(x, y)
+          ]);
 
-        bezier.tesselate(scale).forEach(point => {
-          output.push([1, scaled(point.x), scaled(point.y)])
-        })
+          bezier.tesselate(scale).forEach(point => {
+            output.push([1, scaled(point.x), scaled(point.y)])
+          })
+
+          px = x
+          py = y
+        }
         break;
       case 'L':
         x = cmd[1]
@@ -43,6 +48,7 @@ function lineRenderer(commands, scale) {
         output.push([1, scaled(x), scaled(y)])
         break;
       case 'z':
+      case 'Z':
         break;
       default:
         throw new Error("Unknown command: " + cmd.join(' '))
