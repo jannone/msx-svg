@@ -1,0 +1,11 @@
+{
+  "name": "msx-svg",
+  "version": "1.0.0",
+  "description": "Translates SVG paths to code executable on a MSX computer",
+  "main": "index.js",
+  "author": "Rafael Jannone <jannone@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "xml2js": "^0.4.19"
+  }
+}
