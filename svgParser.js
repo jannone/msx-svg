@@ -12,7 +12,10 @@ class SVGPath
       return isNaN(ret) ? n : ret
     }
     const data = this.dattribute.trim().replace(/[a-zA-Z]/g, (m) => '|' + m[0] + ' ')
-    const commands = data.split('|').filter(cmd => cmd.length > 0).map(cmd => cmd.split(/ +/g).map(parseNum))
+    const commands = data.split('|')
+      .map(cmd => cmd.trim())
+      .filter(cmd => cmd.length > 0)
+      .map(cmd => cmd.split(/[ ,]+/g).map(parseNum))
     return commands
   }  
 }
